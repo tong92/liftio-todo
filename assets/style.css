@@ -1,0 +1,144 @@
+html, body, div, span,
+h1, p, ul, li {
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  background: #f1f1f1;
+  font-size: 16px;
+  line-height: 22px;
+  color: #404040;
+  font-family: 'Lucida Grande', Verdana, sans-serif;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+button {
+  background: lightseagreen;
+  color: #fff;
+  padding: 3px 10px;
+  margin: 0 0 0 3px;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 2em;
+  min-width: 5em;
+  cursor: pointer;
+  vertical-align: bottom;
+}
+
+button:hover {
+  background: lightslategrey;
+}
+
+.done button {
+  background-color: rgb(54, 201, 130);
+}
+.done button:hover {
+  background-color: rgb(54, 201, 130);
+}
+
+button.red {
+  background: red;
+}
+
+button.red:hover {
+  background: darkred;
+}
+
+.app-title {
+  font-size: 52px;
+  line-height: 52px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: -0.8px;
+}
+
+.input-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  padding: 4px 10px 4px;
+  font-size: 16px;
+  font-family: 'Lucida Grande', Verdana, sans-serif;
+  line-height: 20px;
+  border: solid 1px #dddddd;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+:host(:not([hidden])) {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.todo-app {
+  position: relative;
+  width: 400px;
+  padding: 30px 30px 15px;
+  background: white;
+  border: 1px solid;
+  border-color: #dfdcdc #d9d6d6 #ccc;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.todo-app::before, .todo-app::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  height: 4px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.todo-app::after {
+  bottom: -3px;
+  left: 0;
+  right: 0;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.todo-app::before {
+  bottom: -5px;
+  left: 2px;
+  right: 2px;
+  border-color: #c4c4c4;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.todo-item {
+  padding: 10px 0;
+  border-top: solid 1px #ddd;
+  min-height: 2em;
+  line-height: 2em;
+  display: flex;
+  justify-content: space-between;
+}
+.todo-item.done {
+  color: lightgray;
+}
+
+.todo-checkbox {
+  flex-shrink: 0;
+  margin: auto 1ex auto 0;
+}
+
+.todo-title {
+  flex-grow: 1;
+  padding-left: 11px;
+}

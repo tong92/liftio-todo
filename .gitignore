@@ -1,0 +1,13 @@
+.bloop
+.metals
+.bsp
+
+node_modules
+.parcel-cache
+
+.vscode
+
+target
+
+dist
+dist-build
