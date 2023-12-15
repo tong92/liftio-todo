@@ -10,25 +10,27 @@ import scala.scalajs.js.annotation.*
 object Todosample extends TyrianApp[Msg, Model]:
   def router: Location => Msg = Routing.none(Msg.NoOp)
 
-  def init(flags: Map[String, String]): (Model, Cmd[IO, Msg]) = ((Nil, ""), Cmd.None)
+  def init(flags: Map[String, String]): (Model, Cmd[IO, Msg]) = 
+    (Todo.init, Cmd.None)
 
   def update(model: Model): Msg => (Model, Cmd[IO, Msg]) =
-    case Msg.Update(s) => ((model._1, s), Cmd.None)
-    case Msg.Create => ((Item.init(model._2) :: model._1, ""), Cmd.None)
+    case Msg.Update(s) => (Todo(model._1, s), Cmd.None)
+    case Msg.Create => (Todo(Item.init(model.nextTodo) :: model.items, ""), Cmd.None)
     case Msg.Modify(id, m) =>
-      Item.update(m, model._1.toList(id)) match
+      Item.update(m, model.items(id)) match
         case Some(item) => 
-          ((model._1.patch(id, List(item), 1), model._2), Cmd.None)
-        case None => ((model._1.patch(id, Nil, 1), model._2), Cmd.None)
+          (Todo(model.items.updated(id, item), model.nextTodo), Cmd.None)
+        case None => 
+          (Todo(model.items.patch(id, Nil, 1), model.nextTodo), Cmd.None)
     case Msg.NoOp => (model, Cmd.None)
 
   def view(model: Model): Html[Msg] =
-    val todos = model._1.zipWithIndex.map { case (c, i) =>
+    val todos = model.items.zipWithIndex.map { case (c, i) =>
       Item.view(c).map(msg => Msg.Modify(i, msg))
     }
 
     val elems = div(cls := "input-wrap")(
-      input(onInput(txt => Msg.Update(txt)), value := model._2),
+      input(onInput(txt => Msg.Update(txt)), value := model.nextTodo),
       button(onClick(Msg.Create))(text("Add"))
     ) :: todos
 
@@ -36,7 +38,10 @@ object Todosample extends TyrianApp[Msg, Model]:
 
   def subscriptions(model: Model): Sub[IO, Msg] = Sub.None
 
-type Model = (List[Item.Model], String)
+case class Todo(items: List[Item.Model], nextTodo: String)
+object Todo:
+  def init = Todo(Nil, "")
+type Model = Todo
 
 enum Msg:
   case Update(s: String)
